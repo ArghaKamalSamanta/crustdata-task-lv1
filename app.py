@@ -32,7 +32,10 @@ def process_api_request(response):
                 # Attempt to fix the API call using error logs
                 complete_api_example = f"```{lang}\n{api_example}```"
                 fixed_api_example = attempt_to_fix_api_call(complete_api_example, error_log)
-                fixed_api_example = "```" + re.search(r"```(.*?)```", fixed_api_example, re.DOTALL).group(1) + "```"
+                if "```" in fixed_api_example:
+                    fixed_api_example = "\n```" + re.search(r"```(.*?)```", fixed_api_example, re.DOTALL).group(1) + "```\n"
+                else:
+                    fixed_api_example = complete_api_example
                 response = response[:start_idx] + fixed_api_example + response[end_idx + 1:]
     return response
 
@@ -53,7 +56,6 @@ def extract_api_example(response):
                 "start_idx": start_idx,
                 "end_idx": end_idx
             })
-
         return results
     return None
 
@@ -61,9 +63,47 @@ def extract_api_example(response):
 if st.session_state.history:
     for chat in st.session_state.history:
         with st.container():
-            st.markdown(f"**You:** {chat['user']}")
-            st.markdown(f"**Bot:** {chat['bot']}")
-            st.markdown("---")
+            # User's query (right-aligned)
+            st.markdown(
+                f"""
+                <div style="
+                    display: flex; 
+                    justify-content: flex-end; 
+                    margin-bottom: 10px;">
+                    <div style="
+                        background-color: #DCF8C6; 
+                        color: black; 
+                        padding: 10px 15px; 
+                        border-radius: 15px; 
+                        max-width: 60%; 
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        {chat['user']}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            # Bot's response (left-aligned)
+            st.markdown(
+                f"""
+                <div style="
+                    display: flex; 
+                    justify-content: flex-start; 
+                    margin-bottom: 10px;">
+                    <div style="
+                        background-color: #FFF9E0; 
+                        color: black; 
+                        padding: 10px 15px; 
+                        border-radius: 15px; 
+                        max-width: 60%; 
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        {chat['bot']}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
 # Input section
 with st.container():
