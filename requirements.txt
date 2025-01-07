@@ -137,6 +137,7 @@ python-multipart==0.0.9
 python-pptx==0.6.21
 pyttsx3==2.90
 pytz==2024.2
+pywin32>=223
 PyYAML==6.0.2
 pyzmq==25.0.2
 rapidfuzz==3.6.1
