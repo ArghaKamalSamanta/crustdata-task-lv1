@@ -126,7 +126,6 @@ pyerfa==2.0.1.4
 Pygments==2.15.1
 pypandoc==1.13
 pypdfium2==4.28.0
-pypiwin32==223
 pytesseract==0.3.10
 python-dateutil==2.9.0.post0
 python-docx==1.1.0
@@ -137,7 +136,6 @@ python-multipart==0.0.9
 python-pptx==0.6.21
 pyttsx3==2.90
 pytz==2024.2
-pywin32>=223
 PyYAML==6.0.2
 pyzmq==25.0.2
 rapidfuzz==3.6.1
