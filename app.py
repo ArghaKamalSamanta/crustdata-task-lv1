@@ -36,6 +36,11 @@ def process_api_request(response):
                     fixed_api_example = "\n```" + re.search(r"```(.*?)```", fixed_api_example, re.DOTALL).group(1) + "```\n"
                 else:
                     fixed_api_example = complete_api_example
+                
+                pattern = re.escape(complete_api_example)
+                match = re.search(pattern, response)
+                start_idx = match.start()
+                end_idx = match.end()
                 response = response[:start_idx] + fixed_api_example + response[end_idx + 1:]
     return response
 
@@ -98,7 +103,7 @@ if st.session_state.history:
                         border-radius: 15px; 
                         max-width: 60%; 
                         box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-                        {chat['bot']}
+                        <p>{chat['bot']}</p>
                     </div>
                 </div>
                 """,
