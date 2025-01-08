@@ -50,7 +50,7 @@ def generate_response(query):
     completion = client.chat.completions.create(
         model="mistralai/Mistral-7B-Instruct-v0.3", 
     	messages=messages, 
-    	max_tokens=500
+    	max_tokens=1000
     )
 
     return completion.choices[0].message.content
